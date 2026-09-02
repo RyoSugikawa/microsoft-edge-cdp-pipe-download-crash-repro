@@ -1,0 +1,16 @@
+{
+  "name": "microsoft-edge-cdp-pipe-download-crash-repro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone reproduction of an Edge crash during a CDP-pipe-controlled download with a reused profile.",
+  "type": "module",
+  "scripts": {
+    "repro": "node repro.mjs --transport pipe --iterations 8",
+    "control": "node repro.mjs --transport port --iterations 8",
+    "check": "node --check repro.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}

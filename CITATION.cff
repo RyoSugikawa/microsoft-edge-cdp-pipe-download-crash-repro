@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If this investigation is useful, cite the repository and its author."
+title: "Microsoft Edge CDP Pipe Crash Reproduction"
+type: software
+authors:
+  - family-names: "S."
+    given-names: Ryo
+    alias: ryo-whaletech
+    website: "https://github.com/ryo-whaletech"
+repository-code: "https://github.com/ryo-whaletech/microsoft-edge-cdp-pipe-download-crash-repro"
+license: MIT
+version: 1.0.0
+date-released: 2026-09-03
