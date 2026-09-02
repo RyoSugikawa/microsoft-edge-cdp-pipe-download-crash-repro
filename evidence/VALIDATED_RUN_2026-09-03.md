@@ -66,3 +66,23 @@ A second A/B run used `Browser.setDownloadBehavior` with `allowAndName`, matchin
 pipe: run 1 succeeded; run 2 crashed with 0xC0000005
 port: runs 1–4 succeeded
 ```
+
+## Playwright public-API reproduction
+
+The minimized `playwright_repro.py` companion was validated with Playwright for Python 1.62.0 in both modes:
+
+```text
+headless: run 1 succeeded; run 2 disconnected and save_as reported a closed target
+headed:   run 1 succeeded; run 2 disconnected and save_as reported a closed target
+```
+
+Each run used a newly generated profile that was then reused for the second Edge launch. The independently generated dumps retained the same native signature:
+
+```text
+exception_code=0xC0000005
+access_type=read
+module=msedge.dll 152.0.4191.53
+module_offset=0x9D5C88B
+headless_access_address=0x1A
+headed_access_address=0x21
+```
