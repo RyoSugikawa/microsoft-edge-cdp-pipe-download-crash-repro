@@ -6,6 +6,8 @@ The investigation isolates the failure boundary to **Microsoft Edge + reusable p
 
 > Status: reproduced on Microsoft Edge Stable 152.0.4191.53 on Windows 11 build 26200. The result is environment-specific until independently confirmed upstream.
 
+Upstream tracking: [MicrosoftEdge/DevTools#461](https://github.com/MicrosoftEdge/DevTools/issues/461).
+
 ## Why this repository exists
 
 The original application surfaced two high-level errors:
@@ -67,6 +69,17 @@ node repro.mjs --transport port --iterations 8
 
 The control changes only the debugging transport from `--remote-debugging-pipe` to an ephemeral `--remote-debugging-port` WebSocket endpoint.
 
+### Reproduce through Playwright
+
+The companion Python reproduction exercises the original public API path. It launches Edge repeatedly with `chromium.launch_persistent_context(channel="msedge")`, reuses one dedicated generated profile, and downloads the same generated 5 MiB payload once per launch.
+
+```powershell
+python -m pip install -r requirements-playwright.txt
+python playwright_repro.py --iterations 5
+```
+
+No Playwright browser download is required because the script selects the locally installed Edge Stable channel. Add `--headed` to verify that the failure is not limited to headless execution.
+
 ### Optional parameters
 
 ```text
@@ -110,6 +123,8 @@ The common instruction and module offset strongly indicate one native fault reac
 ```text
 .
 ├── repro.mjs                         # Pipe reproduction and port control
+├── playwright_repro.py               # Minimal Playwright public-API reproduction
+├── requirements-playwright.txt       # Pinned Python binding used for validation
 ├── docs/
 │   └── INVESTIGATION.md              # Hypotheses and controlled isolation
 ├── evidence/
